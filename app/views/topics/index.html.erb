@@ -1,0 +1,44 @@
+<div>トピック一覧</div>
+<div>
+    <% @topic_all.each do |topic| %>
+        <% user_list = topic.join_user %>
+        <% if user_list != nil %>
+            <% set_list = user_list.split(',') %>
+            <%= set_list.include?(current_user.id.to_s)%>
+            <%if set_list.include?(current_user.id.to_s)%>
+                 <%= topic.title %>
+                <%= topic.created_at %>
+                <%= topic.join_user %>
+                
+                <% if topic.public == 0 %>
+                    <p>特定のユーザに公開</p>
+                <% else %>
+                    <p>すべてのユーザーに公開</p>
+                <% end %>
+                
+                <div style="width: 100px; height: 100px;">
+                    <%= image_tag topic.topic_image.to_s %>
+                </div>
+                <%= topic.content %>
+
+            <% end %>
+        <% else %>
+            <%= link_to topic.title,preview_topic_path(topic.id) %>
+            <%= topic.title %>
+            <%= topic.created_at %>
+            <%= topic.join_user %>
+            
+            <% if topic.public == 0 %>
+                <p>特定のユーザに公開</p>
+            <% else %>
+                <p>すべてのユーザーに公開</p>
+            <% end %>
+            
+            <div style="width: 100px; height: 100px;">
+                <%= image_tag topic.topic_image.to_s %>
+            </div>
+            <%= topic.content %>
+        <% end %>
+    <% end %>
+</div>
+<%= paginate @topic_all %>

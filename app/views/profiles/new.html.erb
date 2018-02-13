@@ -1,0 +1,17 @@
+<% if Profile.find_by(user_id: current_user.id).blank? %>
+    <%= form_for(@profile)do |f| %>
+        <%= f.label :homepage,'ホームページ'%>
+        <%= f.text_field :homepage %>
+        
+        <%= f.label :twitter,'ツイッターID' %>
+        <%= f.text_field :twitter %>
+        
+        <%= f.label :content,'説明'%>
+        <%= f.text_field :content %>
+        
+        <%= f.hidden_field :user_id,:value =>current_user.id %>
+        <%= f.submit '送信'%>
+    <% end %>
+<% else %>
+    <%= render :file => 'profiles/_update_profile'%>
+<% end %>

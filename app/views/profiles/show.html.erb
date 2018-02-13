@@ -1,0 +1,6 @@
+<% @profile_get.each do |profile| %>
+<%= profile.twitter %>
+<%= profile.homepage %>
+<%= profile.content %>
+<% end %>
+<%= link_to 'ユーザートップへ',profiles_path %>

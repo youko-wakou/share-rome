@@ -1,0 +1,13 @@
+<%= form_for (@profile_info) do |f| %>
+    <% current_user.name %>
+    <%= f.label :twitter, 'twitter' %>
+    <%= f.text_field :twitter,value: @profile_info.twitter %>
+    
+    <%= f.label :homepage, 'ホームページ' %>
+    <%= f.text_field :homepage,value: @profile_info.homepage %>
+    
+    <%= f.label :content,'説明' %>
+    <%= f.text_area :content,value: @profile_info.content %>
+    
+    <%= f.submit '送信'%>
+<% end %>

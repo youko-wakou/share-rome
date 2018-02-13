@@ -1,0 +1,34 @@
+<% @message.each do |message| %>
+    <% user = message.user_id %>
+    <%= User.find(user).name %>
+    <%= message.message %>
+    <% message.files.to_s %>
+    <%= name_list = message.file_name.split(',') %>
+    <%= name_list.length %>
+    <% name_list.each do |name| %>
+        <%= name %><br>
+    <% end %>
+    
+    <%= status_list = message.status.delete('[]" ').split(',') %>
+    <% status_list.each do |status|%>
+    <%if status == "image/bmp"|| status == "image/jpeg"||status =="image/png" %>
+        <div>画像</div>
+    <% elsif status == "text/plain" %>
+        <div>テキスト</div>
+    <% elsif status == "audio/mp3"%>
+        <div>音楽</div>
+    <% elsif status == "video/mp4"%>
+        <div>動画</div>
+    <% elsif status == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"%>
+        <div>エクセル</div>
+    <% elsif status =="application/vnd.openxmlformats-officedocument.presentationml.presentation"%>
+        <div>パワーポイント</div>
+    <% elsif status == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"%>
+        <div>ワード</div>
+    <% else %>
+    　   <div>それ以外</div>
+    <% end %>
+        <%= status %><br>
+    <% end %>
+    
+<% end %>

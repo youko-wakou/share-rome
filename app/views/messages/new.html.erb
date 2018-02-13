@@ -1,0 +1,17 @@
+<%= form_for(@message) do |f| %>
+    <%= f.hidden_field :topic_id, value: topic_id %>
+    <%= f.label :file,'ファイル'%>
+    <p>複数選択可能</p>
+    <div>
+        <%= f.file_field :files,:multiple => true %>
+       
+            <% file_name = @message.files.map{|file|File.basename('uploads/message')}.join(', ')%>
+            <%= file_type = @message.files.map{|file|@message.files.content_type}.join(', ') %>
+            <%= f.hidden_field :file_name,value: file_name %>
+            <%= f.hidden_field :status,value: file_type %>
+    </div>
+    <%= f.hidden_field :for_message_id,value: 0 %>
+   <%= f.label :message,'メッセージ'%>
+    <%= f.text_area :message %>
+    <%= f.submit '送信'%>
+<% end %>

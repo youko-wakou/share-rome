@@ -1,0 +1,40 @@
+<%= render template:'photos/index' %>
+<div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+    <% if Profile.find_by(user_id: current_user.id).blank?%>
+        <%= button_to '新規プロフィール登録',new_profile_path,:class => 'default-button col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1 form-default-balance' %>
+    <% else %>
+        <%= button_to 'プロフィール情報の更新',edit_profile_path(@profile),:class => 'default-button col-md-6 col-sm-8 col-xs-12 col-md-offset-3 col-sm-offset-2 form-default-balance' %>
+        <div class="">
+            <table class="table form-default-balance table-bordered table-responsive">
+                <thead>
+                    <tr class="danger">
+                        <th>/</th>
+                        <th>プロフィール</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="danger">
+                        <th>ユーザーネーム</th>
+                        <td><%= current_user.name %></td>
+                    </tr>
+                    <tr class="danger">
+                        <th>Twitter</th>
+                        <td>
+                            <%= link_to @profile.twitter,"https://twitter.com/#{@profile.twitter}" %>
+                        </td>
+                    </tr>
+                    <tr class="danger">
+                        <th>ホームページ</th>
+                       <td><%= link_to @profile.homepage,@profile.homepage %></td>
+                    </tr>
+                    <tr class="danger">
+                        <th>紹介文</th>
+                        <td><%= @profile.content %></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+    
+    <% end %>
+</div>

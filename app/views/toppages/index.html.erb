@@ -1,0 +1,13 @@
+<% unless logged_in? %>
+    <%= link_to 'ログイン',login_path %>
+    <%= link_to '新規登録',signup_path %>
+<% else %>
+    
+    ログインユーザー：<%= current_user.name %>さん
+    <div>
+       <%= link_to 'ユーザーページ',profiles_path %> 
+    </div>
+    <%= link_to '記事一覧',topics_path %>
+    <%= link_to 'トピック作成',new_topic_path %>
+    <%= link_to 'ログアウト',logout_path,method: :delete %>
+<% end %>

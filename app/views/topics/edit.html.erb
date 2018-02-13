@@ -1,0 +1,23 @@
+<%= form_for @topic do |f| %>
+    <%= f.label :title, 'タイトル'%>
+    <%= f.text_field :title %>
+    
+    <%= f.label :topic_image,'トピックのテーマ画像'%>
+    <%= f.file_field :topic_image %>
+    
+    <%= f.label :genre ,'ジャンル'%>
+    <%= f.select :genre, {"仕事"=>1,"雑談"=>2,"動物"=>3,"趣味"=>4,"その他"=>5}%>
+    
+    <%= f.label :public ,'公開レベル' %>
+    <%= f.select :public,{"すべてのユーザーに公開する"=>1,"指定したユーザーにのみ公開"=>0}%>
+    <%= check_box_tag 'join_user',"0",true%>
+    <%= label :join_user,'全体に公開する場合はここをクリック' %>
+    <% @user.each do |user| %>
+        <%= check_box_tag 'topic[join_user][]',user.id,false %>
+        <%= f.label :join_user,user.name %>
+    <% end %>
+
+    <%= f.label :content, '説明' %>
+    <%= f.text_area :content %>
+    <%= f.submit 'トピックを作成',name: 'create'%>
+<% end %>

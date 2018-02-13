@@ -1,0 +1,35 @@
+<% @topic.each do |topic| %>
+    <%= topic.title %>
+    <%= image_tag topic.topic_image.to_s %>
+    <p>作成ユーザー</p>
+    <%= User.find(topic.user_id).name %>
+    <% if topic.genre == 1 %>
+        <p>仕事</p>
+    <% elsif topic.genre == 2  %>
+        <p>雑談</p>
+    <% elsif topic.genre == 3%>
+        <p>動物</p>
+    <% elsif topic.genre == 4 %>
+        <p>趣味</p>
+    <% elsif topic.genre == 5 %>
+        <p>その他</p>
+    <% end %>
+    <p>参加ユーザー</p>
+    <%= array_user = topic.join_user %><br>
+    <% if array_user == "0" %>
+    すべてのユーザーに公開されています
+    <%end%>
+    <% if array_user.blank? %>
+    <% else %>
+        <%= change = array_user.split(',')%>
+        <p>招待されているユーザー</p>
+        <% if topic.join_user == "0"%>
+        
+        <% else %>
+            <% change.each do |user| %>
+                <%= User.find(user).name %><br>
+            <% end %>
+        <% end %>
+    <% end %>
+    <%= topic.content %>
+<% end %>

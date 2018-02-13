@@ -1,0 +1,71 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ /*全体*/
+ body {
+     background-color: #ffdb70;
+ }
+ /*デフォルトセット*/
+ .default-button {
+     background-color: #ff7073;
+     text-align: center;
+ }
+ .default-button:hover{
+   background-color: #F64D50;
+ }
+ .form-default-balance{
+  margin-top: 30px;
+  margin-bottom: 30px;
+ }
+ .default-bottom-form {
+  margin-bottom: 20px;
+ }
+ .default-balance {
+  margin: 30px 0;
+ }
+ /*メニュー*/
+ #head-menu {
+     background-color: #ff6e00;
+     max-height: 100px;
+ }
+  #title_img {
+     max-height: 100px;
+ }
+ #top-login-menu >ul>li>a {
+   padding: 40px 0px;
+ }
+ /*プロフィール情報*/
+ #prof-img-box {
+   min-height: 150px;
+   overflow: hidden;
+ }
+ #prof-img-box > img {
+   width: 100%;
+   height: 150px;
+   text-align:center;
+ }
+ /*トピック作成*/
+ .sidebar-username {
+   height: 150px;
+   width: 300px;
+   overflow-y: scroll;
+ }
+ /*@media(max-width: 767px){*/
+ /*    #top-login-menu {*/
+ /*        display: none;*/
+ /*    }*/
+
+ 
+

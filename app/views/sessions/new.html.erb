@@ -1,0 +1,12 @@
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <div class="col-md-6 col-sm-8 col-xs-12 col-md-offset-3 col-sm-offset-2">
+        <h3 class="text-center">ユーザーログイン</h3>
+        <%= form_for(:session,url: login_path)do |f| %>
+            <%= f.label :email,'メールアドレス'%>
+            <%= f.email_field :email,class:'form-control default-bottom-form'%>
+            <%= f.label :password,'パスワード'%>
+            <%= f.password_field :password,class:'form-control default-bottom-form'%>
+            <%= f.submit 'ログイン',class:'btn default-button col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1'%>
+        <% end %>
+    </div>
+</div>

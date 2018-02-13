@@ -1,0 +1,28 @@
+<% @topic.each do |topic| %>
+    <p>タイトル</p>
+    <%= topic.title %>
+    <p>説明</p>
+    <%= topic.content %>
+    <%user = topic.user_id%>
+    <p>作成者</p>
+    <%= User.find(user).name %>
+    <p>公開設定</p>
+    <% if topic.public ==0 %>
+        <p>ユーザーが招待したメンバー</p>
+        <% user_join = topic.join_user %>
+        <% user_list = user_join.split(',') %>
+        <% user_list.each do |list| %>
+            <%= User.find(list).name %>
+        <% end %>
+    <% else %>
+        <p>すべてのユーザー</p>
+    <% end %>
+    
+    <p>公開日</p>
+    <%= topic.created_at %>
+    <div>メッセージ一覧</div>
+        <%= render template: 'messages/preview',locals:{topic_id: topic.id} %>
+    <div>メッセージ投稿</div>
+    <%= render template: 'messages/new', locals:{topic_id: topic.id} %>
+<% end %>
+

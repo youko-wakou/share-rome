@@ -1,0 +1,12 @@
+=> [[32m#<ActionDispatch::Http::UploadedFile:0x007f66e6078100[0m
+  @content_type[32m=[0m[31m[1;31m"[0m[31mimage/png[1;31m"[0m[31m[0m,
+  @headers[32m=[0m
+   [31m[1;31m"[0m[31mContent-Disposition: form-data; name=[1;35m\"[0m[31mmessage[files][][1;35m\"[0m[31m; filename=[1;35m\"[0m[31mkensaku.png[1;35m\"[0m[31m[1;35m\r[0m[31m[1;35m\n[0m[31mContent-Type: image/png[1;35m\r[0m[31m[1;35m\n[0m[31m[1;31m"[0m[31m[0m,
+  @original_filename[32m=[0m[31m[1;31m"[0m[31mkensaku.png[1;31m"[0m[31m[0m,
+  @tempfile[32m=[0m[32m#<File:/tmp/RackMultipart20180210-19617-177qgbt.png>[0m[32m>[0m,
+ [32m#<ActionDispatch::Http::UploadedFile:0x007f66e6078088[0m
+  @content_type[32m=[0m[31m[1;31m"[0m[31mimage/png[1;31m"[0m[31m[0m,
+  @headers[32m=[0m
+   [31m[1;31m"[0m[31mContent-Disposition: form-data; name=[1;35m\"[0m[31mmessage[files][][1;35m\"[0m[31m; filename=[1;35m\"[0m[31mlike.png[1;35m\"[0m[31m[1;35m\r[0m[31m[1;35m\n[0m[31mContent-Type: image/png[1;35m\r[0m[31m[1;35m\n[0m[31m[1;31m"[0m[31m[0m,
+  @original_filename[32m=[0m[31m[1;31m"[0m[31mlike.png[1;31m"[0m[31m[0m,
+  @tempfile[32m=[0m[32m#<File:/tmp/RackMultipart20180210-19617-4ewgie.png>[0m[32m>[0m]
