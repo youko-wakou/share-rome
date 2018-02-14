@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   get 'users/new'
 
   get 'users/create'
+  post '/topics/:id/preview' => 'topics#preview'
+  
+  post '/topics/new' => 'topics#new'
   resources :profiles
   resources :photos,only:[:index,:new,:create,:update,:edit]
   resources :historys,only:[:index,:new,:create,:show]
@@ -32,8 +35,11 @@ Rails.application.routes.draw do
     member do
       get 'preview'
       get 'download'
+      get 'renew'
     end
     collection do 
+            post 'recreate'
+
     end
   end
   resources :topics do

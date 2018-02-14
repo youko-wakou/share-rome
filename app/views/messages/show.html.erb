@@ -1,34 +1,64 @@
-<% @message.each do |message| %>
-    <% user = message.user_id %>
-    <%= User.find(user).name %>
-    <%= message.message %>
-    <% message.files.to_s %>
-    <%= name_list = message.file_name.split(',') %>
-    <%= name_list.length %>
-    <% name_list.each do |name| %>
-        <%= name %><br>
-    <% end %>
-    
-    <%= status_list = message.status.delete('[]" ').split(',') %>
-    <% status_list.each do |status|%>
-    <%if status == "image/bmp"|| status == "image/jpeg"||status =="image/png" %>
-        <div>画像</div>
-    <% elsif status == "text/plain" %>
-        <div>テキスト</div>
-    <% elsif status == "audio/mp3"%>
-        <div>音楽</div>
-    <% elsif status == "video/mp4"%>
-        <div>動画</div>
-    <% elsif status == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"%>
-        <div>エクセル</div>
-    <% elsif status =="application/vnd.openxmlformats-officedocument.presentationml.presentation"%>
-        <div>パワーポイント</div>
-    <% elsif status == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"%>
-        <div>ワード</div>
-    <% else %>
-    　   <div>それ以外</div>
-    <% end %>
-        <%= status %><br>
-    <% end %>
-    
-<% end %>
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+        <h3 class="text-center">投稿するコメント</h3>
+        <div class="container-fluid form-default-balances space-default border-box form-default-balance">
+            <% @message.each do |message| %>
+                <div class="col-md-2 thum-img text-center">
+                    <% user = message.user_id %>
+                    <% photo = Photo.find_by(user_id: user) %>
+                    <% if photo.blank? %>
+                        <%= image_tag 'nothing-image.png' %>
+                    <% else %>
+                        <%= image_tag photo.image_url %>
+                    <% end %>
+                </div>
+                <div class="col-md-10">
+                    <div class="border-none-space">
+                      投稿ユーザー：<%= User.find(user).name %>  
+                    </div>
+                    <%= message.message %>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="container-fluid bg-color space-default kadomaru-default">
+                <p class="text-center border-none-space">添付ファイル</p>
+                <% if message.file_name == "nothing" %>
+                    添付ファイルはありません。
+                <%else %>
+                    <% message.files.to_s %>
+                    <% name_list = message.file_name.delete('"[]/ ').split(',') %>
+                    <% name_list.length %>
+                    <% status_list = message.status.delete('[]" ').split(',') %>
+                    <div class="container-fluid">
+                        <% name_list.zip(status_list).each do |name,status| %>
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <div class="container-fluid cut-text"><%= name %></div>
+                                 <%if status == "image/bmp"|| status == "image/jpeg"||status =="image/png" %>
+                                    <div class="container-fluid"><i class="fa fa-file-image-o fa-3x"></i></div>
+                                <% elsif status == "text/plain" %>
+                                    <div class="container-fluid"><i class="fa fa-tags fa-3x"></i></div>
+                                <% elsif status == "audio/mp3"%>
+                                    <div class="container-fluid">音楽</div>
+                                <% elsif status == "video/mp4"%>
+                                    <div class="container-fluid"><i class="fa fa-film fa-3x"></i></div>
+                                <% elsif status == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"%>
+                                    <div class="container-fluid"><i class="fa fa-file-excel-o fa-3x"></div>
+                                <% elsif status =="application/vnd.openxmlformats-officedocument.presentationml.presentation"%>
+                                    <div class="container-fluid"><i class="fa fa-file-powerpoint-o fa-3x"></i></div>
+                                <% elsif status == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"%>
+                                    <div class="container-fluid"><i class="fa fa-file-word-o fa-3x"></i></div>
+                                <% else %>
+                                　   <div class="container-fluid">それ以外</div>
+                                <% end %>
+                            </div>
+                        <% end %>
+                    </div>
+                <%end %>
+            </div>
+            <div class="center-block text-center">
+                <%= button_to 'トピックへ戻る',preview_topic_path(message.topic_id),:method => 'get',:class =>'sub-button form-default-balance'%>
+            </div>
+            
+            <% end %>
+    </div>
+</div>

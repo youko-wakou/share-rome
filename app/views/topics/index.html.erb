@@ -1,44 +1,31 @@
-<div>トピック一覧</div>
-<div>
-    <% @topic_all.each do |topic| %>
-        <% user_list = topic.join_user %>
-        <% if user_list != nil %>
-            <% set_list = user_list.split(',') %>
-            <%= set_list.include?(current_user.id.to_s)%>
-            <%if set_list.include?(current_user.id.to_s)%>
-                 <%= topic.title %>
-                <%= topic.created_at %>
-                <%= topic.join_user %>
-                
-                <% if topic.public == 0 %>
-                    <p>特定のユーザに公開</p>
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+        <h3 class="text-center">トピック一覧</h3>
+        <% @topic_all.each do |topic| %>
+        <div class="container-fluid bg-color space-default default-bottom-form">
+            <div class ="col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1 container-fluid image-space-default hei-img-topic">
+                <% if topic.topic_image.blank? %>
+                    <%= image_tag 'nothing-image.png'%>
                 <% else %>
-                    <p>すべてのユーザーに公開</p>
+                    <%= image_tag topic.topic_image %>
                 <% end %>
-                
-                <div style="width: 100px; height: 100px;">
-                    <%= image_tag topic.topic_image.to_s %>
-                </div>
-                <%= topic.content %>
-
-            <% end %>
-        <% else %>
-            <%= link_to topic.title,preview_topic_path(topic.id) %>
-            <%= topic.title %>
-            <%= topic.created_at %>
-            <%= topic.join_user %>
-            
-            <% if topic.public == 0 %>
-                <p>特定のユーザに公開</p>
-            <% else %>
-                <p>すべてのユーザーに公開</p>
-            <% end %>
-            
-            <div style="width: 100px; height: 100px;">
-                <%= image_tag topic.topic_image.to_s %>
             </div>
-            <%= topic.content %>
+            <div class="clear"></div>
+            <%= link_to preview_topic_path(topic.id) do %>
+                <p class="text-center border-un"><strong><%= topic.title %></strong></p>
+            <% end %>
+            <div><p><%= topic.created_at.strftime("%Y%m%d_%H:%M:%S") %></p></div>
+            <div>
+                <p class="border-none-space">
+                    <%user = User.find(topic.user_id) %>
+                    投稿ユーザー：<%= user.name %>
+                </p>
+            </div>
+            <div>
+               <%= topic.content %>
+            </div>
+        </div>
         <% end %>
-    <% end %>
+        <%= paginate @topic_all%>
+    </div>
 </div>
-<%= paginate @topic_all %>

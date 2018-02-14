@@ -1,8 +1,8 @@
 <div class="col-md-12 col-sm-12 col-xs-12 default-balance">
     <div class="col-md-6 col-sm-8 col-xs-12 col-md-offset-3 col-sm-offset-2">
-        <h3 class="text-center default-bottom-form">メッセージ投稿</h3>
-        <%= form_for(@message) do |f| %>
-            <%= f.hidden_field :topic_id, value: topic_id %>
+        <h3 class="text-center">メッセージ投稿</h3>
+        <%= form_for @message,url:{:action => 'create',:controller => 'messages'},html:{:method => 'post'} do |f| %>
+            <%= f.hidden_field :topic_id, value: @topic_id %>
             <div class="form-group">
                 <%= f.label :files,'ファイル'%>
                 <p>複数選択可能</p>
@@ -11,7 +11,7 @@
                     <%= f.file_field :files,:multiple => true %>
                 </div>
             </div>
-            <%= f.hidden_field :for_message_id,value: 0 %>
+            <%= f.hidden_field :for_message_id,value: @message_id %>
             <div class="form-group">
                <%= f.label :message,'メッセージ'%>
                <%= f.text_area :message,:class => 'form-control' %>

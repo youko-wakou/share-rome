@@ -1,35 +1,82 @@
-<% @topic.each do |topic| %>
-    <%= topic.title %>
-    <%= image_tag topic.topic_image.to_s %>
-    <p>作成ユーザー</p>
-    <%= User.find(topic.user_id).name %>
-    <% if topic.genre == 1 %>
-        <p>仕事</p>
-    <% elsif topic.genre == 2  %>
-        <p>雑談</p>
-    <% elsif topic.genre == 3%>
-        <p>動物</p>
-    <% elsif topic.genre == 4 %>
-        <p>趣味</p>
-    <% elsif topic.genre == 5 %>
-        <p>その他</p>
-    <% end %>
-    <p>参加ユーザー</p>
-    <%= array_user = topic.join_user %><br>
-    <% if array_user == "0" %>
-    すべてのユーザーに公開されています
-    <%end%>
-    <% if array_user.blank? %>
-    <% else %>
-        <%= change = array_user.split(',')%>
-        <p>招待されているユーザー</p>
-        <% if topic.join_user == "0"%>
-        
-        <% else %>
-            <% change.each do |user| %>
-                <%= User.find(user).name %><br>
-            <% end %>
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <div class="col-md-10 col-sm-10 col-xs-12 col-md-offset-1 col-sm-offset-1">
+        <h3 class="text-center">投稿トピック</h3>
+        <% @topic.each do |topic| %>
+            
+            <div class="col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1" id="topic-img-show">
+                <% if topic.topic_image.blank? %>
+                    <%= image_tag 'nothing-image.png',:class => 'default-bottom-form' %>
+                <% else %>
+                    <%= image_tag topic.topic_image.to_s,:class => 'default-bottom-form' %>
+                <% end %>
+            </div>
+            <table class="table table-topic default-bottom-form table-striped space-default">
+                <tbody>
+                    <tr class="danger">
+                        <th>タイトル</th>
+                        <td><%= topic.title %></td>
+                    </tr>
+                    <tr class="danger">
+                        <th>作成ユーザー</th>    
+                        <td><%= User.find(topic.user_id).name %></td>
+                    </tr>
+                    <tr class="danger">
+                        <th>ジャンル</th>
+                        <td>
+                            <% if topic.genre == "1" %>
+                                <p>仕事</p>
+                            <% elsif topic.genre == "2"  %>
+                                <p>雑談</p>
+                            <% elsif topic.genre == "3"%>
+                                <p>動物</p>
+                            <% elsif topic.genre == "4" %>
+                                <p>趣味</p>
+                            <% elsif topic.genre == "5" %>
+                                <p>その他</p>
+                            <% end %>
+          
+                        </td>
+                    </tr>
+                    <tr class="danger">
+                        <th>参加ユーザ-</th>
+                        <td>
+                            <% array_user = topic.join_user %><br>
+                            <% if array_user == "0" %>
+                                すべてのユーザーに公開されています
+                            <%end%>
+                        </td>
+                    </tr>
+                    <tr class="danger">
+                        <th>招待されているユーザー</th>
+                        <td>
+                            <% if array_user.blank? %>
+                            <% else %>
+                                <% change = array_user.split(',')%>
+                                <% if topic.join_user == "0"%>
+                                
+                                <% else %>
+                                    <% change.each do |user| %>
+                                        <%= User.find(user).name %><br>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        </td>
+                    </tr>
+                    <tr class="danger">
+                        <th>トピック説明</th>
+                        <td>
+                            <%= topic.content %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         <% end %>
-    <% end %>
-    <%= topic.content %>
-<% end %>
+        
+        <div class="pull-left default-bottom-form">
+            <%= button_to '記事投稿画面へ',new_topic_path,:class => 'sub-button' %>
+        </div>
+        <div class="pull-right default-bottom-form">
+            <%= button_to '記事一覧へ',topics_path,:class => 'sub-button' %>
+        </div>
+    </div>
+</div>

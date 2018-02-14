@@ -14,14 +14,28 @@ class MessagesController < ApplicationController
   def create
     # require 'pry'
     # binding.pry
-    file = []
+    
+    
    file_content = params[:message][:files]
-   file_content.each do |file_list|
-     params[:message][:file_name] << file_list.original_filename + ','
-     file << file_list.content_type
-   end
+   file_naiyou = params[:message][:message]
+   
+    if file_content.blank?
+      file = ""
+      filename_array = ""
+      file = "nothing"
+      filename_array = "nothing"
+    else
+      file = []
+      filename_array = []
+      file_content.each do |file_list|
+         filename_array << file_list.original_filename
+         file << file_list.content_type
+      end
+    end
     @message = current_user.messages.build(message_params)
     @message.status = file
+    @message.file_name = filename_array
+    
     if @message.save!(validate: true)
       flash[:success] = 'コメントの投稿に成功しました'
       redirect_to message_path(@message)
@@ -33,19 +47,46 @@ class MessagesController < ApplicationController
   end
 
   def destroy
+    id = params[:id]
+    topic_id = params[:topic_id]
+    if Message.find(id).destroy
+      flash[:success]= 'メッセージを削除しました'
+      redirect_to preview_topic_url(topic_id)
+    else
+      flash[:danger] ="メッセージの削除に失敗しました"
+      redirect_to 'new'
+    end
   end
 
   def edit
   end
-
+  
+  def renew
+    @message = current_user.messages.build
+    @id = params[:id]
+    @message_id = params[:message_id]
+    @topic_id = params[:topic_id]
+  end
+  
+  def recreate
+    @message = current_user.messages.build(message_params)
+    if @message.save
+      flash[:sucess] = 'メッセージを返信しました'
+      redirect_to preview_topic_url(@message.topic_id)
+    else
+      flash[:danger] = 'メッセージの返信に失敗しました'
+      render 'renew'
+    end
+  end
+  
   def update
   end
   
   def preview
-    id = params[:id]
-    @message_user = Message.find_by(topic_id: id)
-    
-   
+    # page = 10
+    # id = params[:id]
+    # @message_user = Message.where(topic_id: id).page(params[:page]).order(updated_at: :asc).per(page)
+    # @message_user = Kaminari.paginate_array(Message.find_all_by_topic_id(id)).order(updated_at: :asc).page(params[:page]).per(page)
   end
   
   def download
@@ -70,7 +111,7 @@ class MessagesController < ApplicationController
       end
     end  
     send_file(zip_file)
-    File.delete(zip_file)
+    # File.delete(zip_file)
 
       # File.unlink(zip_file)
     # ::Zip::File.open(zip_file, ::Zip::File::CREATE) {|z|z.add(File.basename(target_path),target_path)}
@@ -84,6 +125,6 @@ class MessagesController < ApplicationController
       ERB::Util.url_encode("#{base_filename}_#{Time.current.in_time_zone('Asia/Tokyo').strftime "%Y%m%d%H%M%S"}.#{type}")
   end
   def message_params
-    params.require(:message).permit(:message,:user_id,:file_name,:for_message_id,:topic_id,{:files => []})
+    params.require(:message).permit(:message,:user_id,:for_message_id,:topic_id,{:files => []})
   end
 end

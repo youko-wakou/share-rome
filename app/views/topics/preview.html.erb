@@ -1,28 +1,51 @@
-<% @topic.each do |topic| %>
-    <p>タイトル</p>
-    <%= topic.title %>
-    <p>説明</p>
-    <%= topic.content %>
-    <%user = topic.user_id%>
-    <p>作成者</p>
-    <%= User.find(user).name %>
-    <p>公開設定</p>
-    <% if topic.public ==0 %>
-        <p>ユーザーが招待したメンバー</p>
-        <% user_join = topic.join_user %>
-        <% user_list = user_join.split(',') %>
-        <% user_list.each do |list| %>
-            <%= User.find(list).name %>
-        <% end %>
-    <% else %>
-        <p>すべてのユーザー</p>
-    <% end %>
-    
-    <p>公開日</p>
-    <%= topic.created_at %>
-    <div>メッセージ一覧</div>
-        <%= render template: 'messages/preview',locals:{topic_id: topic.id} %>
-    <div>メッセージ投稿</div>
-    <%= render template: 'messages/new', locals:{topic_id: topic.id} %>
-<% end %>
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+        <div class="bg-color container-fluid kadomaru-default space-default">
+            <% @topic.each do |topic| %>
+            <div class="col-md-4 col-sm-6 col-xs-12 col-sm-offset-3 col-md-offset-4 hei-img-topic image-space-default">
+                <% if topic.topic_image.blank? %>
+                    <%= image_tag 'nothing-image.png' %>
+                <% else %>
+                    <%= image_tag topic.topic_image %>
+                <% end %>
+            </div>
+            <div class="col-md-8 col-sm-10 col-xs-12 col-sm-offset-1 col-md-offset-2">
+                 <p class="border-un"><strong>タイトル:<%= topic.title %></strong></p>
+                 <p class="border-un">公開日：<%= topic.created_at %></p>
+                 <%user = topic.user_id%>
+                <p class="border-un">作成者:<%= User.find(user).name %></p> 
+                <div class="border-un">
+                    <p>説明</p>
+                    <%= topic.content %>
+                </div>
+                <p>公開設定</p>
+                <% if topic.public ==0 %>
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            参加ユーザー一覧
+                            <span class="caret"></span>
+                        </div>
+                        
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <% user_join = topic.join_user %>
+                            <% user_list = user_join.split(',') %>
+                            <% user_list.each do |list| %>
+                                <li><%= User.find(list).name %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                <% else %>
+                    <p>すべてのユーザー</p>
+                <% end %>
+           </div>
+       </div>
+    </div>
+</div>
+<div class="clear"></div>
+<!--<div>メッセージ一覧</div>-->
+<%= render template: 'messages/preview',locals:{topic_id: topic.id} %>
+<!--<div>メッセージ投稿</div>-->
+<%= render template: 'messages/new', locals:{topic_id: topic.id} %>
+            <% end %>
+   
 

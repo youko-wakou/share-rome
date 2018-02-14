@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   def index
-    @topic_all = Topic.all.page(params[:page]).per(10)
+    page = 10
+    @topic_all = Topic.all.page(params[:page]).order('created_at DESC').per(page)
     
   end
 
@@ -93,10 +94,13 @@ class TopicsController < ApplicationController
   end
   
   def preview
+    page = 10
     id = params[:id]
     @topic = Topic.where(id: id)
     @message = current_user.messages.build
-    @message_user = Message.where(topic_id: id)
+    # @message_user = Message.where(topic_id: id)
+    # @message_user = Kaminari.paginate_array(Message.find_all_by_topic_id(id)).order(created_at: :asc).page(params[:page]).per(page)
+    @message_user = Message.where(topic_id: id).page(params[:page]).per(page)
   end
 
   def update
