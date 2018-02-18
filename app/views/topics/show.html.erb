@@ -76,7 +76,7 @@
             <%= button_to '記事投稿画面へ',new_topic_path,:class => 'sub-button' %>
         </div>
         <div class="pull-right default-bottom-form">
-            <%= button_to '記事一覧へ',topics_path,:class => 'sub-button' %>
+            <%= button_to '記事一覧へ',topics_path,method: :get,:class => 'sub-button' %>
         </div>
     </div>
 </div>

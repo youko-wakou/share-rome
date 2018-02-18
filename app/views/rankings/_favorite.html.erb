@@ -1,0 +1,35 @@
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+        <h3 class="text-center default-bottom-form">お気に入り数ランキング</h3>
+        <% if Favorite.exists? %>
+            <% @ranking_topic.zip(@rank_count).each do |topic,count| %>
+                <div class="clear"></div>
+                <div class="border-box tatehami default-bottom-form space-default"style="min-height:170px">
+                    <span class="zyuni"><%= @count += 1 %></span>
+                    <div class="col-md-4 image-space-default clear">
+                        <% if topic.topic_image.blank? %>
+                            <%= image_tag 'nothing-image.png' %>
+                        <% else %>
+                            <%= image_tag topic.topic_image %>
+                        <% end %>
+                    </div>
+                    <div class="col-md-8 image-space-default">
+                       <%= link_to topic.title,preview_topic_path(topic.id) %>
+                       <% name = User.find(topic.user_id).name %>
+                        <p>作成ユーザー：<%= name %></p>
+    
+                    </div>
+                    <div class="col-md-8">
+                        <%= topic.content %>
+                    </div>
+                    <span>お気に入り数：<%= count %></span>
+            </div>
+            <% end %>
+        <% else %>
+        <div class="text-center bg-info">
+            まだお気に入りされているアイテムがありません
+        </div>
+        <% end %>
+        <div class="clear"></div>
+    </div>
+</div>

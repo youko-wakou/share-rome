@@ -1,5 +1,8 @@
 class Topic < ApplicationRecord
   belongs_to :user
+  has_many :topic_favorites,class_name: 'Favorite'
+  
+  has_many :topic_histories,class_name: 'History'
   mount_uploader :topic_image,TopicImageUploader
   
   before_save do 

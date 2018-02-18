@@ -1,5 +1,18 @@
-<%= form_for (@photo) do |f| %>
-    <%= f.file_field :image_url %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.submit '決定' %>
-<% end %>
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <div class="col-md-6 col-sm-8 col-xs-12 col-md-offset-3 col-sm-offset-2">
+        <h3 class="text-center">画像を設定する</h3>
+        <div class="bg-color form-default-balance">
+            <%= form_for (@photo) do |f| %>
+                <div class="form-group form-default-balance space-default">
+                    <%= f.label:image_url,'画像を選択してください',:class => 'form-controll' %>
+                   <%= f.file_field :image_url,:classs => 'form-controll' %>
+                   <%= f.hidden_field :user_id, value: current_user.id,:class => 'form-controll' %>
+                </div>
+                <div>
+                    <%= f.submit '決定',:class => 'btn-lg default-button center-block' %>
+                </div>
+            <% end %>
+        </div>
+        
+    </div>
+</div>

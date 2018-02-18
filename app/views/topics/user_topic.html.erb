@@ -1,0 +1,61 @@
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+        <h3 class="text-center">ユーザートピック一覧</h3>
+        <% @topic_all.each do |topic| %>
+        <div class="container-fluid bg-color space-default default-bottom-form">
+           
+            <div class ="col-md-8 col-sm-10 col-xs-9 col-md-offset-2 container-fluid image-space-default parent-box">
+                 <% if current_user.include_favo?(topic.id)%>
+                    <span class="mark-favo1 img-responsive">
+                        お気に入り済み
+                    </span>
+                <% else %>
+                    <span class="mark-favo2 img-responsive">
+                        お気に入りしていません
+                    </span>
+                <% end %>
+                <% if topic.topic_image.blank? %>
+                    <%= image_tag 'nothing-image.png',:class => 'img-responsive'%>
+                <% else %>
+                    <%= image_tag topic.topic_image,:class => 'img-responsive' %>
+                <% end %>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-3">
+                <%= link_to edit_usertopic_topics_path(id:{topic_id: topic.id}),method: :post do %>
+                    編集<i class="fa fa-pencil-square-o fa-3x"></i>
+                <% end %>
+            </div>
+            <div class="clear"></div>
+            <%= link_to preview_topic_path(topic.id) do %>
+                <div class="text-center border-un cut-text"><strong><%= topic.title %></strong></div>
+            <% end %>
+            <p class="border-un">
+                <%= topic.created_at.strftime("%Y年%m月%d日_%H:%M:%S") %> | コメント数： <%= @topic_message = Message.where(topic_id: topic.id).count %>
+            </p>
+            
+            <p class="border-un">
+                <%user = User.find(topic.user_id) %>
+                投稿ユーザー：<%= user.name %> | 
+             ジャンル：
+              <% if topic.genre == "1" %>
+                   仕事
+                <% elsif topic.genre == "2"  %>
+                    雑談
+                <% elsif topic.genre == "3"%>
+                    動物
+                <% elsif topic.genre == "4" %>
+                    趣味
+                <% elsif topic.genre == "5" %>
+                    その他
+                <% end %>
+             </p>
+            <div>
+               <%= topic.content %>
+            </div>
+        </div>
+        <% end %>
+        <div class="center-block text-center">
+            <%= paginate @topic_all%>
+        </div>
+    </div>
+</div>

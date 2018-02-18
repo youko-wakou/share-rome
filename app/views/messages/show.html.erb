@@ -1,9 +1,9 @@
 <div class="col-md-12 col-sm-12 col-xs-12 default-balance">
     <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
         <h3 class="text-center">投稿するコメント</h3>
-        <div class="container-fluid form-default-balances space-default border-box form-default-balance">
+        <div class="container-fluid form-default-balances space-default border-box form-default-balance thum-img" style="min-height: 100px">
             <% @message.each do |message| %>
-                <div class="col-md-2 thum-img text-center">
+                <div class="col-md-2 thum-img text-center image-space-default">
                     <% user = message.user_id %>
                     <% photo = Photo.find_by(user_id: user) %>
                     <% if photo.blank? %>
@@ -12,6 +12,7 @@
                         <%= image_tag photo.image_url %>
                     <% end %>
                 </div>
+                
                 <div class="col-md-10">
                     <div class="border-none-space">
                       投稿ユーザー：<%= User.find(user).name %>  
@@ -32,13 +33,16 @@
                     <div class="container-fluid">
                         <% name_list.zip(status_list).each do |name,status| %>
                         <div class="col-md-3 col-sm-4 col-xs-6">
+                            <%=status %>
                             <div class="container-fluid cut-text"><%= name %></div>
-                                 <%if status == "image/bmp"|| status == "image/jpeg"||status =="image/png" %>
+                                 <%if status == "image/bmp"|| status == "image/jpeg"||status =="image/png"|| status == 'image/svg+xml' %>
                                     <div class="container-fluid"><i class="fa fa-file-image-o fa-3x"></i></div>
-                                <% elsif status == "text/plain" %>
+                                <% elsif status == "text/plain" || status == "text/html"%>
                                     <div class="container-fluid"><i class="fa fa-tags fa-3x"></i></div>
                                 <% elsif status == "audio/mp3"%>
-                                    <div class="container-fluid">音楽</div>
+                                    <div class="container-fluid"><i class="fa fa-music fa-3x"></i></div>
+                                <% elsif status =="application/x-zip-compressed"%>
+                                    <div class="container-fluid"><i class="fa fa-file-archive-o fa-3x"></i></div>
                                 <% elsif status == "video/mp4"%>
                                     <div class="container-fluid"><i class="fa fa-film fa-3x"></i></div>
                                 <% elsif status == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"%>
@@ -47,8 +51,10 @@
                                     <div class="container-fluid"><i class="fa fa-file-powerpoint-o fa-3x"></i></div>
                                 <% elsif status == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"%>
                                     <div class="container-fluid"><i class="fa fa-file-word-o fa-3x"></i></div>
+                                <% elsif status == 'application/octet-stream'%>
+                                    <div class="container-fluid"><i class="fa fa-file-code-o fa-3x"></i></div>
                                 <% else %>
-                                　   <div class="container-fluid">それ以外</div>
+                                　   <div class="container-fluid"><i class="fa fa-files-o fa-3x"></i></div>
                                 <% end %>
                             </div>
                         <% end %>

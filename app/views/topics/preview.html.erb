@@ -2,16 +2,44 @@
     <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
         <div class="bg-color container-fluid kadomaru-default space-default">
             <% @topic.each do |topic| %>
-            <div class="col-md-4 col-sm-6 col-xs-12 col-sm-offset-3 col-md-offset-4 hei-img-topic image-space-default">
+            <div class="col-md-6 col-sm-8 col-xs-12 hei-img-topic image-space-default">
                 <% if topic.topic_image.blank? %>
                     <%= image_tag 'nothing-image.png' %>
                 <% else %>
                     <%= image_tag topic.topic_image %>
                 <% end %>
             </div>
+            <!--お気に入りボタン-->
+            <div class=" col-md-6 col-sm-4 col-xs-12 text-center">
+                <% if current_user.include_favo?(topic.id) %>
+                    お気に入りを解除してもいいですか？
+                    <%= link_to favorite_path(topic.id),method: :delete do %>
+                        <div class="text-center"style="color:yellow"><i class="fa fa-star fa-4x"></i></div>
+                    <% end %>
+                <% else %>
+                    お気に入りに追加しますか？
+                    <%= link_to favorites_path(topic:{id: topic.id}),method: :post do %>
+                        <div class="text-center"style="color:gray"><i class="fa fa-star fa-4x"></i></div>
+                    <% end %>
+                <% end %>
+            </div>
             <div class="col-md-8 col-sm-10 col-xs-12 col-sm-offset-1 col-md-offset-2">
                  <p class="border-un"><strong>タイトル:<%= topic.title %></strong></p>
-                 <p class="border-un">公開日：<%= topic.created_at %></p>
+                 <p class="border-un">公開日：<%= topic.created_at.strftime("%Y年%m月%d日 %H:%M:%S") %></p>
+                 <p class="border-un">
+                     ジャンル：
+                      <% if topic.genre == "1" %>
+                               仕事
+                            <% elsif topic.genre == "2"  %>
+                                雑談
+                            <% elsif topic.genre == "3"%>
+                                動物
+                            <% elsif topic.genre == "4" %>
+                                趣味
+                            <% elsif topic.genre == "5" %>
+                                その他
+                            <% end %>
+                 </p>
                  <%user = topic.user_id%>
                 <p class="border-un">作成者:<%= User.find(user).name %></p> 
                 <div class="border-un">

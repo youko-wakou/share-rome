@@ -10,13 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180212051506) do
+ActiveRecord::Schema.define(version: 20180217090515) do
+
+  create_table "favorites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "topic_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_favorites_on_topic_id", using: :btree
+    t.index ["user_id"], name: "index_favorites_on_user_id", using: :btree
+  end
+
+  create_table "friends", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "follow_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follow_id"], name: "index_friends_on_follow_id", using: :btree
+    t.index ["user_id", "follow_id"], name: "index_friends_on_user_id_and_follow_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_friends_on_user_id", using: :btree
+  end
 
   create_table "histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.integer  "topic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_histories_on_topic_id", using: :btree
     t.index ["user_id"], name: "index_histories_on_user_id", using: :btree
   end
 
@@ -72,6 +92,11 @@ ActiveRecord::Schema.define(version: 20180212051506) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "favorites", "topics"
+  add_foreign_key "favorites", "users"
+  add_foreign_key "friends", "users"
+  add_foreign_key "friends", "users", column: "follow_id"
+  add_foreign_key "histories", "topics"
   add_foreign_key "histories", "users"
   add_foreign_key "messages", "users"
   add_foreign_key "photos", "users"

@@ -1,0 +1,18 @@
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance"style="">
+    <ul class="nav nav-tabs">
+        <li class="nav-item col-md-6 col-sm-6 col-xs-12 text-center">
+            <a href="#tab1" data-toggle="tab"class="nav-link">お気に入りランキング</a>
+        </li>
+        <li class="nav-item col-md-6 col-sm-6 col-xs-12 text-center">
+            <a href="#tab2" data-toggle="tab"class="nav-link">コメント数ランキング</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="tab1" class="tab-pane active">
+            <%=render 'rankings/favorite' %>
+        </div>
+        <div id="tab2" class="tab-pane">
+            <%= render 'rankings/comment'%>
+        </div>
+    </div>
+</div>

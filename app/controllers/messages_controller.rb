@@ -10,7 +10,14 @@ class MessagesController < ApplicationController
   def new
     @message = current_user.messages.build
   end
-
+  
+  def reply
+    page = 10
+    id = params[:id]
+    @topic_id = params[:topic_id]
+    @message_user = Message.where(for_message_id: id).page(params[:page]).per(page)
+  end
+  
   def create
     # require 'pry'
     # binding.pry
@@ -80,6 +87,9 @@ class MessagesController < ApplicationController
   end
   
   def update
+  end
+  
+  def comment
   end
   
   def preview

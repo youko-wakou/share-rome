@@ -22,7 +22,7 @@
    display: block;
  }
 .bg-sub {
-  background-color: #ff7770;
+  background-color: #ff8b85;
 }
 .small-box {
    display: inline-block;
@@ -80,7 +80,23 @@
  .default-balance {
   margin: 30px 0;
  }
+ /*フッターメニュー*/
+ .block-youso {
+     display: block;
+ }
+ .bg-footer:hover {
+     background-color: #FFBE6A;
+ }
+ .bg-footer>a{
+     color: black;
+ }
+ .bg-footer>a:hover{
+     text-decoration: none;
+ }
  /*メニュー*/
+ .navbar {
+  margin-bottom:0;
+ }
  #head-menu {
      background-color: #ff6e00;
      max-height: 100px;
@@ -123,8 +139,31 @@
  .bg-color {
    background-color: #ffedb3;
  }
+ 
  .hei-img-topic {
    height: 250px;
+ }
+ .parent-box {
+     position: relative;
+     overflow-x:hidden;
+ }
+ .mark-favo1{
+     top: 20%;
+     transform: rotate( -45deg );
+     position:absolute;
+     background-color: red;
+     color: white;
+     font-weight: bold;
+     padding: 5px;
+ }
+ .mark-favo2{
+     transform: rotate( -45deg );
+     position:absolute;
+     top: 20%;
+     background-color: blue;
+     color: white;
+     font-weight: bold;
+     padding: 5px;
  }
  /*コメント詳細*/
  .thum-img{
@@ -145,6 +184,72 @@
 .panel {
   background:none;
   border:none;
+}
+/*メインメニュー*/
+.main-menu{
+  margin-top:0;
+  margin-bottom: 0;
+}
+.man-menu-color{
+  border: 1px solid #ff3c00;
+  background: -moz-linear-gradient(top, rgba(255,119,0,1) 1%, rgba(255,233,0,1) 49%, rgba(255,84,0,1) 100%);
+  background: -webkit-linear-gradient(top, rgba(255,119,0,1) 1%,rgba(255,233,0,1) 49%,rgba(255,84,0,1) 100%);
+  background: linear-gradient(to bottom, rgba(255,119,0,1) 1%,rgba(255,233,0,1) 49%,rgba(255,84,0,1) 100%);
+}
+.main-drop-menu >a{
+  border-bottom: 1px solid gray;
+  display:block;
+}
+.main-drop-menu >a:hover,.main-drop-menu >a:over{
+  text-decoration: none;
+}
+.main-menu > a{
+  color: white;
+  font-weight: bold;
+  display:block;
+  padding-top:10px;
+  padding-bottom: 10px;
+}
+.main-menu:hover{
+  background: -moz-linear-gradient(top, rgba(255,72,0,1) 2%, rgba(255,127,0,1) 42%, rgba(255,233,0,1) 65%, rgba(255,84,0,1) 92%);
+  background: -webkit-linear-gradient(top, rgba(255,72,0,1) 2%,rgba(255,127,0,1) 42%,rgba(255,233,0,1) 65%,rgba(255,84,0,1) 92%);
+  background: linear-gradient(to bottom, rgba(255,72,0,1) 2%,rgba(255,127,0,1) 42%,rgba(255,233,0,1) 65%,rgba(255,84,0,1) 92%);
+}
+.main-menu > a:hover,.main-menu > a:over{
+  text-decoration: none;
+}
+.sm-menu-takasa{
+  height: 40px;
+  line-height: 40px;
+}
+/*ランキングーコメント数*/
+.tatehami{
+    overflow-y:hidden;
+}
+.nav-tabs {
+    border-bottom-color: #ff2163;
+}
+.zyuni {
+    background-color: red;
+    color:white;
+    font-weight: bold;
+    padding:10px;
+    border-radius: 15px;
+    line-height: 36px;
+}
+.nav-tabs>li>a{
+    color: black;
+    font-weight: bold;
+    background-color: #f796b3;
+    border: 1px solid #ff2163;
+}
+/*ユーザー一覧*/
+.back-white{
+    border-radius: 15px;
+    background-color: white;
+}
+.youso-haba {
+    display:inline-block;
 }
  /*@media(max-width: 767px){*/
  /*    #top-login-menu {*/

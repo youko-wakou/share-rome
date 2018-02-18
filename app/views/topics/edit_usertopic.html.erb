@@ -1,0 +1,46 @@
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <div class="col-md-6 col-sm-8 col-xs-12 col-md-offset-3 col-sm-offset-2">
+        <h3 class="text-center">トピック作成</h3>
+        <%= form_for @topic,url: usertopic_update_topic_path(@id) do |f|%>
+            <div class="form-group">
+                <%= f.label :title,'タイトル'%>
+                <%= f.text_field :title,:class => 'form-control',:value => @title %>
+            </div>
+            <div class="form-group">
+                <%= f.label :genre,'ジャンル'%>
+                <%= f.select :genre,{"仕事"=>1,"雑談"=>2,"動物"=>3,"趣味"=>4,"その他"=>5},:selected =>@genre%>
+            </div>
+            <div class="form_group default-bottom-form">
+                <%= f.label :topic_image,'トピックイメージ' %>
+                <%= f.file_field :topic_image %>
+            </div>
+            <div class="form-group">
+                <%= f.label :public,'公開レベル'%>
+                <%= f.select :public,{"すべてのユーザーに公開する"=>1,"指定したユーザーにのみ公開"=>0},:selected => @show,:class => 'form-control'%>
+            </div>
+            <div class="form_group default-bottom-form">
+                <%= label :word,'ユーザー検索' %>
+                <%= text_field_tag :word,@word,:class => 'form-control default-bottom-form' %>
+                <%= submit_tag '検索',:class => 'default-button' %>
+            </div>
+            <div class="sidebar-username">
+                <% join_int = "nothing"%>
+                <%= check_box_tag 'join',join_int,true%>
+                <%= label :join ,'公開対象はすべてのユーザー'%>
+                <% @users.each do |user| %>
+                    <div>
+                        <%= check_box_tag 'topic[join_user][]',user.id,false %>
+                        <%= f.label :join_user,user.name %>
+                    </div>
+                <% end %>
+            </div>
+
+            
+            <div class="form-group">
+                <%= f.label :content,'説明'%>
+                <%= f.text_area :content,:class => 'form-control',:value => @content %>
+            </div>
+            <%= f.submit 'トピックを作成',:class => 'default-button col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1'%>
+        <% end %>
+    </div>
+</div>

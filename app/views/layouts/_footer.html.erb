@@ -1,0 +1,33 @@
+<div class="col-md-12 col-sm-12 col-xs-12"style="border-top: 1px solid gray">
+    <% unless logged_in? %>
+        <div class="col-md-2 col-sm-3 text-center bg-footer">
+            <%= link_to 'ログイン',login_path,:class => 'space-default block-youso' %>
+        </div>
+        <div class="col-md-2 col-sm-3 text-center bg-footer">
+            <%= link_to 'サインアップ',signup_path,:class => 'space-default block-youso' %>
+        </div>
+    <% else %>
+        <div class="col-md-2 col-sm-3 text-center bg-footer">
+            <%= link_to 'ログアウト',logout_path,method: :delete,:class => 'space-default block-youso' %>
+        </div>
+        <div class="col-md-2 col-sm-3 text-center bg-footer">
+            <%= link_to 'Topへ戻る',root_path,:class => 'space-default block-youso' %>
+        </div>
+        <div class="col-md-2 col-sm-3 text-center bg-footer">
+            <%= link_to 'ランキング',rankings_index_path,:class => 'space-default block-youso' %>
+        </div>
+        <div class="col-md-2 col-sm-3 text-center bg-footer">
+            <%= link_to '新規トピック',topics_new_path,:class => 'space-default block-youso' %>
+        </div>
+        <div class="col-md-2 col-sm-3 text-center bg-footer">
+            <%= link_to 'ユーザーリスト',friend_list_users_path,:class => 'space-default block-youso' %>
+        </div>
+        <div class="col-md-2 col-sm-3 text-center bg-footer">
+            <%= link_to 'ツイッター',"https://twitter.com/twitterjp?lang=ja",:class => 'space-default block-youso' %>
+        </div>
+    <% end %>
+    <div class="clear"></div>
+    <div class="text-center form-default-balance">
+        <small>Copyright © 2018 ShareSpace All Rights Reserved.</small>
+    </div>
+</div>

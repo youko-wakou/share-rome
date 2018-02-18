@@ -1,0 +1,3 @@
+<% @message.each do |id,topic| %>
+    <%= message.Message.find_by(topic_id: id) %>
+<% end %>

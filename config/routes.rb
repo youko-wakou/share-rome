@@ -1,21 +1,9 @@
 Rails.application.routes.draw do
+  
+  get 'rankings/index'
+
   root to: 'toppages#index'
-  get 'histroys/index'
-
-  get 'histroys/show'
-
-  get 'histroys/new'
-
-  get 'histroys/create'
-
-  get 'histories/index'
-
-  get 'histories/show'
-
-  get 'histories/new'
-
-  get 'histories/create'
-
+ 
    get 'sessions/new'
 
   get 'sessions/create'
@@ -28,14 +16,38 @@ Rails.application.routes.draw do
   post '/topics/:id/preview' => 'topics#preview'
   
   post '/topics/new' => 'topics#new'
+  
+  post '/photos/new' => 'photos#new'
+  
+  post '/photos/:id/edit' => 'photos#edit'
+  
+  post '/profiles/new' => 'profiles#new'
+  
+  post '/profiles/:id/edit' => 'profiles#edit'
+  
   resources :profiles
   resources :photos,only:[:index,:new,:create,:update,:edit]
   resources :historys,only:[:index,:new,:create,:show]
+  resources :favorites,only:[:index,:show,:new,:create,:update,:destroy]
+  resources :rankings,only:[:index]
+  resources :users do
+    member do
+      
+    end
+    collection do
+      post 'create_friend'
+      post 'word_create'
+      get 'friend_list'
+    end
+  end
+  
   resources :messages do
     member do
       get 'preview'
       get 'download'
       get 'renew'
+      get 'reply'
+      get 'comment'
     end
     collection do 
             post 'recreate'
@@ -46,8 +58,14 @@ Rails.application.routes.draw do
     member do 
       get 'preview'
       get 'renew'
+      get 'join'
+      get 'category'
+      patch 'usertopic_update'
+      put 'usertopic_update'
     end
     collection do
+      get 'user_topic'
+      post 'edit_usertopic'
     end
   end
   root to: 'toppages#index'
@@ -57,8 +75,5 @@ Rails.application.routes.draw do
   post'login',to:'sessions#create'
   delete 'logout',to: 'sessions#destroy'
   
-  resources :users,only:[:new,:create,:show]
-  
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

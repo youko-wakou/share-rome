@@ -1,0 +1,30 @@
+<% if logged_in? %>
+    <div class="clear"></div>
+    <div class="col-md-4 col-sm-4 hidden-xs text-center main-menu man-menu-color">
+        <%= link_to 'ユーザーページ',profiles_path %>
+    </div>
+    <div class="col-md-4 col-sm-4 hidden-xs text-center main-menu man-menu-color">
+        <%= link_to 'トピック',topics_path %>
+    </div>
+    <div class="col-md-4 col-sm-4 hidden-xs text-center main-menu man-menu-color">
+        <%= link_to 'ランキング',rankings_path %>
+    </div>
+    
+    <!--スマホ版-->
+    <div class="dropdown">
+        <button class="btn btn-block main-menu man-menu-color visible-xs" data-toggle="dropdown">
+            メインメニュー<i class="fa fa-caret-down"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <li><%= link_to 'ユーザーページ',profiles_path %></li>
+            <li><%= link_to 'トピック',topics_path %></li>
+            <li><%= link_to 'ランキング',rankings_path %></li>
+        </ul>
+    </div>
+    <!--スマホ版ここまで-->
+<% else %>
+    <div class="bg-info text-center space-default">
+        <div>まずは<%= link_to 'ログイン',login_path %>してください</div>
+        <div>まだユーザーアカウントを持っていない方は<%= link_to 'サインアップ',signup_path %>してください。</div>
+    </div>
+<% end%>

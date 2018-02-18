@@ -1,0 +1,12 @@
+<section>
+  <h2>コンテンツを最初は非表示</h2>
+  <button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#sample">コンテンツを開く </button>
+  <div id="sample" class="collapse">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3>アコーディオンの中身</h3>
+        <p>コメントコメントコメントコメントコメントコメントコメント </p>
+      </div>
+    </div>
+  </div>
+</section>

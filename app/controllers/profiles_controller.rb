@@ -9,10 +9,10 @@ class ProfilesController < ApplicationController
     @profile = Profile.new(profile_params)
     if @profile.save
       flash[:success] = 'プロフィールを登録しました'
-      redirect_to profile_path(@profile)
+      redirect_to profiles_path
     else
       flash[:danger]= 'プロフィールの登録に失敗しました'
-      render new_profile_path
+      render 'new'
     end
   end
 
@@ -38,7 +38,7 @@ class ProfilesController < ApplicationController
       redirect_to profiles_url
     else
       flash[:danger]= 'プロフィールの更新に失敗しました'
-      render new_profile_path
+      render 'new'
     end
   end
   

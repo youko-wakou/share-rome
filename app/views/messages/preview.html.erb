@@ -1,8 +1,18 @@
 <div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <h3 class="text-center">メッセージ一覧</h3>
+    <div class="text-center">comment: <%= @count%></div>
+    <div class="col-md-6 col-xs-6 text-center">old ↑</div>
+    <div class="col-md-6 col-xs-6 text-center">new ↓</div>
+    <% if Message.find_by(topic_id: @id) == nil %>
+        <div class="col-md-6 col-sm-10 col-xs-12 col-md-offset-3 col-sm-offset-1 bg-info text-center">
+            まだメッセージの投稿がありません
+        </div>
+    <% end %>
     <% @message_user.each do |message| %>
+        
         <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
             <div class="bg-color container-fluid border-box form-default-balance">
-                <div class="col-md-2 col-xs-12 thum-img text-center">
+                <div class="col-md-2 col-xs-12 thum-img text-center image-space-default"style="margin-top:10px">
                     <% user = message.user_id %>
                     <% photo = Photo.find_by(user_id: user) %>
                     <% if photo.blank? %>
@@ -36,9 +46,10 @@
                         現在のレス数：0
                         <% else %>
                             現在のレス数：<%= Message.where(for_message_id: message.id).count %>
-                             <%= link_to "#message-re-#{message.id}",data:{:toggle => 'collapse'} do %>
-                                レスを表示する<span class="caret"></span>
-                            <% end %>
+                             <%= link_to reply_message_path(message.id,topic_id: message.topic_id) do %>
+                                 レスを表示する
+                                 <i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i>
+                             <% end %>
                         <% end %>
                     </div>
                     <% if message.file_name == "nothing" %>
@@ -54,7 +65,7 @@
                     <% end %>
                 </div>
             </div>
-            <!--アコーディオンメニュー-->
+                <!--アコーディオンメニュー-->
             <%= content_tag(:div,:class =>'collapse',:id => "file-menu-#{message.id}") do %>
             <!--<div class="collapse" id="file-menu">-->
                 <p class="text-center border-none-space">添付ファイル</p>
@@ -66,22 +77,26 @@
                     <% name_list.zip(status_list).each do |name,status| %>
                         <div class="col-md-3 col-sm-4 col-xs-6">
                         <div class="container-fluid cut-text"><%= name %></div>
-                            <%if status == "image/bmp"|| status == "image/jpeg"||status =="image/png" %>
+                             <%if status == "image/bmp"|| status == "image/jpeg"||status =="image/png"|| status == 'image/svg+xml' %>
                                 <div class="container-fluid"><i class="fa fa-file-image-o fa-3x"></i></div>
-                            <% elsif status == "text/plain" %>
+                            <% elsif status == "text/plain" || status == "text/html"%>
                                 <div class="container-fluid"><i class="fa fa-tags fa-3x"></i></div>
                             <% elsif status == "audio/mp3"%>
-                                <div class="container-fluid">音楽</div>
+                                <div class="container-fluid"><i class="fa fa-music fa-3x"></i></div>
+                            <% elsif status =="application/x-zip-compressed"%>
+                                <div class="container-fluid"><i class="fa fa-file-archive-o fa-3x"></i></div>
                             <% elsif status == "video/mp4"%>
                                 <div class="container-fluid"><i class="fa fa-film fa-3x"></i></div>
                             <% elsif status == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"%>
-                                <div class="container-fluid"><i class="fa fa-file-excel-o fa-3x"></i></div>
+                                <div class="container-fluid"><i class="fa fa-file-excel-o fa-3x"></div>
                             <% elsif status =="application/vnd.openxmlformats-officedocument.presentationml.presentation"%>
                                 <div class="container-fluid"><i class="fa fa-file-powerpoint-o fa-3x"></i></div>
                             <% elsif status == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"%>
                                 <div class="container-fluid"><i class="fa fa-file-word-o fa-3x"></i></div>
+                            <% elsif status == 'application/octet-stream'%>
+                                <div class="container-fluid"><i class="fa fa-file-code-o fa-3x"></i></div>
                             <% else %>
-                            　   <div class="container-fluid">それ以外</div>
+                            　   <div class="container-fluid"><i class="fa fa-files-o fa-3x"></i></div>
                             <% end %>
                         </div>
                     <% end %>

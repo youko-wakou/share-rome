@@ -1,0 +1,102 @@
+<div class="col-md-12 col-sm-12 col-xs-12 default-balance">
+    <div class="text-right form-default-balance">
+        <%= link_to topics_new_path do %>
+            <strong>トピック作成</strong><i class="fa fa-pencil-square-o fa-3x"></i>
+        <% end %>
+    </div>
+    <div class="text-center default-balance">
+        カテゴリー一覧：
+    </div>
+
+    <div class="col-md-2 col-sm-4 text-center takasa-link">
+        <%= link_to category_topic_path(1) do %>
+            仕事<i class="fa fa-briefcase fa-3x"></i>
+        <% end %>
+    </div>
+     <div class="col-md-2 col-sm-4 text-center takasa-link">
+        <%= link_to category_topic_path(2) do %>
+            雑談<i class="fa fa-commenting-o fa-3x"></i>
+        <% end %>
+    </div>
+    <div class="col-md-2 col-sm-4 text-center">
+        <%= link_to category_topic_path(3) do %>
+            動物<span class="icon-dog ico"></span>
+        <% end %>
+    </div>
+    <div class="col-md-2 col-sm-4 text-center">
+        <%= link_to category_topic_path(4) do %>
+            動物<span class="icon-coffe ico"></span>
+        <% end %>
+    </div>
+    <div class="col-md-2 col-sm-4 text-center takasa-link">
+        <%= link_to category_topic_path(5) do %>
+            <strong>その他<i class="fa fa-question-circle fa-3x"></i></strong>
+        <% end %>
+    </div>
+    <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+        <h3 class="text-center space-default">
+            <% if @category == "1" %>
+                <p>仕事一覧</p>
+            <% elsif @category == "2"  %>
+                <p>雑談一覧</p>
+            <% elsif @category == "3"%>
+                <p>動物一覧</p>
+            <% elsif @category == "4" %>
+                <p>趣味一覧</p>
+            <% elsif @category == "5" %>
+                <p>その他一覧</p>
+            <% end %>
+        </h3>
+        <% @topic_all.each do |topic| %>
+        <div class="container-fluid bg-color space-default default-bottom-form">
+           
+            <div class ="col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1 container-fluid image-space-default hei-img-topic parent-box">
+                 <% if current_user.include_favo?(topic.id)%>
+                    <span class="mark-favo1">
+                        お気に入り済み
+                    </span>
+                <% else %>
+                    <span class="mark-favo2">
+                        お気に入りしていません
+                    </span>
+                <% end %>
+                <% if topic.topic_image.blank? %>
+                    <%= image_tag 'nothing-image.png'%>
+                <% else %>
+                    <%= image_tag topic.topic_image %>
+                <% end %>
+            </div>
+            <div class="clear"></div>
+            <%= link_to preview_topic_path(topic.id) do %>
+                <div class="text-center border-un cut-text"><strong><%= topic.title %></strong></div>
+            <% end %>
+            <p class="border-un">
+                <%= topic.created_at.strftime("%Y年%m月%d日_%H:%M:%S") %> | コメント数： <%= @topic_message = Message.where(topic_id: topic.id).count %>
+            </p>
+            
+            <p class="border-un">
+                <%user = User.find(topic.user_id) %>
+                投稿ユーザー：<%= user.name %> | 
+             ジャンル：
+              <% if @category == "1" %>
+                    <p>仕事</p>
+                <% elsif @category == "2"  %>
+                    <p>雑談</p>
+                <% elsif @category == "3"%>
+                    <p>動物</p>
+                <% elsif @category == "4" %>
+                    <p>趣味</p>
+                <% elsif @category == "5" %>
+                    <p>その他</p>
+                <% end %>
+             </p>
+            <div>
+               <%= topic.content %>
+            </div>
+        </div>
+        <% end %>
+        <div class="center-block text-center">
+            <%= paginate @topic_all%>
+        </div>
+    </div>
+</div>

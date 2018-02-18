@@ -7,10 +7,10 @@ class PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
     if @photo.save
       flash[:success] = '画像を設定しました'
-      redirect_to photos_url
+      redirect_to profiles_url
     else
       flash[:danger] = '画像の設定に失敗しました'
-      render new_photo_path
+      render 'new'
     end
   end
 
@@ -23,7 +23,7 @@ class PhotosController < ApplicationController
     @photot = Photo.find(id)
     if current_user.photo.update(photo_params)
       flash[:success] = '画像の更新に成功しました。'
-      redirect_to photos_url
+      redirect_to profiles_url
     else
       flash[:danger] = '画像の更新に失敗しました'
       render 'new'

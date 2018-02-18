@@ -1,9 +1,58 @@
+<div class="clear"></div>
+<div class="form-default-balance">
+    <div class="text-center"><p>ページコンテンツ：</p></div>
+   <div class="col-md-4 col-sm-4 text-center">
+       <%= link_to historys_path do %>
+           閲覧履歴<i class="fa fa-list-alt fa-3x"></i>
+       <% end %>
+    </div>
+    <div class="col-md-4 col-sm-4 text-center">
+        <%= link_to favorites_path do %>
+            お気に入りトピック<i class="fa fa-gratipay fa-3x"></i>
+        <% end %>
+    </div>
+    <div class="col-md-4 col-sm-4 text-center">
+        <%= link_to join_topic_path(current_user.id) do %>
+            招待されているトピック<i class="fa fa-sign-language fa-3x"></i>
+        <% end %>
+    </div> 
+</div>
+<div class="clear"></div>
+<div class="form-default-balance">
+    <div class="col-md-6 col-sm-6 text-center">
+        <%= link_to users_path do %>
+            ユーザー一覧<i class="fa fa-users fa-3x"></i>
+        <% end %>
+    </div>
+    <div class="col-md-6 col-sm-6 text-center">
+        <%= link_to friend_list_users_path do %>
+            友達リスト<i class="fa fa-handshake-o fa-3x"></i>
+        <% end %>
+    </div>
+</div>
+<div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2 bg-warning kadomaru-default text-center form-default-balance">
+    <h3 class="text-center">ユーザー作成トピック：</h3>
+    ここからユーザー作成のトピック一覧を表示して、投稿を編集したり削除ができます
+    <%= link_to user_topic_topics_path do %>
+        <p>ユーザー投稿トピックへ<i class="fa fa-pencil-square-o fa-3x"></i></p>
+    <% end %>
+</div>
+<div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+    <h3 class="text-center">公開プロフィール情報</h3>
+</div>
 <%= render template:'photos/index' %>
 <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
     <% if Profile.find_by(user_id: current_user.id).blank?%>
-        <%= button_to '新規プロフィール登録',new_profile_path,:class => 'default-button col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1 form-default-balance' %>
+        <div class="bg-info space-default">
+            まだプロフィール情報が設定されていません。
+        </div>
+        <div class="bg-info space-default">
+        ユーザー名: <%= current_user.name %>
+        </div>
+        <div>
+            <%= button_to '新規プロフィール登録',new_profile_path,:class => 'default-button btn btn-lg center-block form-default-balance' %>
+        </div>
     <% else %>
-        <%= button_to 'プロフィール情報の更新',edit_profile_path(@profile),:class => 'default-button col-md-6 col-sm-8 col-xs-12 col-md-offset-3 col-sm-offset-2 form-default-balance' %>
         <div class="">
             <table class="table form-default-balance table-bordered table-responsive">
                 <thead>
@@ -33,7 +82,10 @@
                     </tr>
                 </tbody>
             </table>
-            
+            <div>
+                <%= button_to 'プロフィール情報の更新',edit_profile_path(@profile),:class => 'default-button btn-lg btn center-block form-default-balance' %>
+            </div>
+
         </div>
     
     <% end %>
