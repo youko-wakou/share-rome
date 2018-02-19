@@ -2,11 +2,12 @@ class HistorysController < ApplicationController
   def index
     user = current_user
      count = 20
-    @topic_all = user.users_show_item.limit(count)
+    @topic_all = user.historys.limit(count)
     topicID = []
     @topic_all.each do |topic|
-      p topicID << topic.id
+      p topicID << topic.topic_id
     end
+    
     @topic_history = user.historys.where(topic_id: topicID).order(created_at: 'desc')
     historyID = []
     @topic_history.each do |topic|

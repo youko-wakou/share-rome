@@ -58,6 +58,7 @@ gem 'carrierwave','~>1.0.0'
 gem 'kaminari-bootstrap','~> 3.0.1'
 gem 'rubyzip'
 gem 'fileutils'
+gem 'cloudinary'
 
 group :production do 
   gem 'pg','0.21.0'

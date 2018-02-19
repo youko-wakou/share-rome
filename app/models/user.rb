@@ -10,7 +10,7 @@ class User < ApplicationRecord
     has_one :profile,:dependent => :destroy
     has_one :photo,:dependent => :destroy
     has_many :files
-    has_many :topics 
+    has_many :topics,dependent: :nullify 
     has_many :messages
     # ユーザーがお気に入りに登録しているトピック
     has_many :topic_favorites,class_name: 'Favorite'
@@ -25,9 +25,9 @@ class User < ApplicationRecord
     has_many :reverses_of_relationship,class_name: 'Friend',foreign_key: 'follow_id'
     has_many :followers,through: :reverses_of_relationship,source: :user
     
-    has_many :topic_histories,class_name: 'History'
-    has_many :users_show_item,through: :topic_histories,source: :topic
-    has_many :historys, class_name: 'History'
+    # has_many :topic_histories,class_name: 'History'
+    # has_many :users_show_item,through: :topic_histories,source: :topic
+    has_many :historys, class_name: 'History',dependent: :nullify
     
     # ================================================================
     

@@ -146,6 +146,8 @@ class TopicsController < ApplicationController
   end
   
   def usertopic_update
+  #   require 'pry'
+  # binding.pry
     id = params[:id]
     @topic = current_user.topics.find(id)
     @users = User.all
@@ -195,13 +197,13 @@ class TopicsController < ApplicationController
         if params[:join] == "nothing"&& params[:topic][:join_user]== nil
           @topic.join_user = "0"
         end
-         @topic = current_user.topics.build(topic_params)
+        # @topic = current_user.topics.build(topic_params)
         
         if @topic.update(topic_params)
-          flash[:success] = '新しいトピックを作成しました'
+          flash[:success] = 'トピックを更新しました'
           redirect_to topic_url(@topic)
         else
-          flash[:danber] = 'トピックの作成に失敗しました'
+          flash[:danber] = 'トピックの更新に失敗しました'
           render 'new'
         end
       end
