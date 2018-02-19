@@ -5,10 +5,11 @@ class FileMessageUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.production?
-    include.Cloudinary::CarrierWave
+    includeCloudinary::CarrierWave
   else
     storage :file
   end
+  
   def public_id
     model.id
   end
