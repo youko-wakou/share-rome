@@ -111,13 +111,17 @@ class MessagesController < ApplicationController
 
   # ここでファイルの中身を一つ一つ配列に格納する
     target_files = []
+    filetype = []
     Dir.glob("#{target_path}/*.*").each do |i|
       target_files.push(i)
+      filetype << File.extname(i)
     end
-    
     ::Zip::File.open(zip_file, ::Zip::File::CREATE) do |zipfile|
-      target_files.each do |file|
-        zipfile.add(File.basename(file),file)
+      target_files.zip(filetype).each do |file,type|
+        count = SecureRandom.base64(8)
+
+        change_name = encode_filename(file,type,count)
+        zipfile.add(File.basename(change_name),file)
       end
     end  
     send_file(zip_file)
@@ -131,8 +135,8 @@ class MessagesController < ApplicationController
   end
 
   private
-  def encode_filename(base_filename, type)
-      ERB::Util.url_encode("#{base_filename}_#{Time.current.in_time_zone('Asia/Tokyo').strftime "%Y%m%d%H%M%S"}.#{type}")
+  def encode_filename(base_filename, type,count)
+      ERB::Util.url_encode("#{base_filename}_#{Time.current.in_time_zone('Asia/Tokyo').strftime "%Y%m%d%H%M%S"}#{count}.#{type}")
   end
   def message_params
     params.require(:message).permit(:message,:user_id,:for_message_id,:topic_id,{:files => []})

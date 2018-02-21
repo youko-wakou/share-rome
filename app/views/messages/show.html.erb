@@ -1,9 +1,9 @@
 <div class="col-md-12 col-sm-12 col-xs-12 default-balance">
     <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
         <h3 class="text-center">投稿するコメント</h3>
-        <div class="container-fluid form-default-balances space-default border-box form-default-balance thum-img" style="min-height: 100px">
             <% @message.each do |message| %>
-                <div class="col-md-2 thum-img text-center image-space-default">
+            <div class="container-fluid form-default-balances space-default border-box form-default-balance clear">
+                <div class="col-md-2 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3 image-space-default thum-img pull-left"style="height: 160px">
                     <% user = message.user_id %>
                     <% photo = Photo.find_by(user_id: user) %>
                     <% if photo.blank? %>
@@ -13,7 +13,7 @@
                     <% end %>
                 </div>
                 
-                <div class="col-md-10">
+                <div class="col-md-12 col-xs-12 col-sm-12 pull-right">
                     <div class="border-none-space">
                       投稿ユーザー：<%= User.find(user).name %>  
                     </div>

@@ -101,7 +101,13 @@
                         </div>
                     <% end %>
                     <div class="clear"></div>
-                    <div class="pull-right"><%= link_to 'ダウンロード.zip',download_message_path(message.id,topic_id: topic_id) %></div>
+                    <% if logged_in? %>
+                        <div class="pull-right"><%= link_to 'ダウンロード.zip',download_message_path(message.id,topic_id: topic_id) %></div>
+
+                    <% else %>
+                        <div class="pull-right"><%= link_to 'ログイン',login_path %></div>
+
+                    <% end %>
                 </div>
             <!--</div>-->
             <% end %>

@@ -20,20 +20,19 @@
     </div>
     <div class="col-md-2 col-sm-4 text-center">
         <%= link_to category_topic_path(3) do %>
-            動物<span class="icon-dog ico"></span>
+            動物<i class="fa fa-paw fa-3x"></i>
         <% end %>
     </div>
     <div class="col-md-2 col-sm-4 text-center">
         <%= link_to category_topic_path(4) do %>
-            動物<span class="icon-coffe ico"></span>
+            趣味<i class="fa fa-smile-o fa-3x"></i>
         <% end %>
     </div>
     <div class="col-md-2 col-sm-4 text-center takasa-link">
         <%= link_to category_topic_path(5) do %>
             <strong>その他<i class="fa fa-question-circle fa-3x"></i></strong>
         <% end %>
-    </div>
-    <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+    </div>    <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
         <h3 class="text-center space-default">
             <% if @category == "1" %>
                 <p>仕事一覧</p>

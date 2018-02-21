@@ -11,7 +11,7 @@ class RankingsController < ApplicationController
         end
       end
        @message_topic = Topic.where(id: topicID).order("field(id, #{topicID.join(',')})")
-      @count = 0
+      # @count = 0
 
       # お気に入り数ランキング
       @ranking = Favorite.limit(10).group(:topic_id).order('count_all DESC').count

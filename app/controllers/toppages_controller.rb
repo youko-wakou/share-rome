@@ -20,7 +20,7 @@ class ToppagesController < ApplicationController
   
       # 招待トピックここまで
       # 最新記事
-        @new = Topic.where.not(join_user: "0").order(created_at: 'desc').limit(5)
+        @new = Topic.where(join_user: "0").order(created_at: 'desc').limit(5)
       # 最新記事ここまで
     end
   end

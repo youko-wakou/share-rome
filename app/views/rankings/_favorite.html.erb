@@ -1,5 +1,6 @@
 <div class="col-md-12 col-sm-12 col-xs-12 default-balance">
     <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+        <% @count = 0 %>
         <h3 class="text-center default-bottom-form">お気に入り数ランキング</h3>
         <% if Favorite.exists? %>
             <% @ranking_topic.zip(@rank_count).each do |topic,count| %>
